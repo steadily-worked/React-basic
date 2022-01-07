@@ -11,6 +11,7 @@ const MealItemForm = (props) => {
     e.preventDefault();
 
     const enteredAmount = amountInputRef.current.value;
+    // 현재 input에 들어가 있는 값. forwardRef를 통해 가져올 수 있게 되었음
     const enteredAmountNumber = +enteredAmount;
     // +변수 -> 문자형 숫자를 숫자형 숫자로 바꿔줌
 
@@ -39,7 +40,7 @@ const MealItemForm = (props) => {
         }}
       />
       <button>+ Add</button>
-      {!isAmountValid && <p>1~5 사이의 양을 입력해주세요.</p>}
+      {!isAmountValid && <p>1~5 사이의 갯수를 입력해주세요.</p>}
     </form>
   );
 };
