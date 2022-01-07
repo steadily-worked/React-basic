@@ -12,6 +12,7 @@ const MealItemForm = (props) => {
 
     const enteredAmount = amountInputRef.current.value;
     const enteredAmountNumber = +enteredAmount;
+    // +변수 -> 문자형 숫자를 숫자형 숫자로 바꿔줌
 
     if (
       enteredAmount.trim().length === 0 ||

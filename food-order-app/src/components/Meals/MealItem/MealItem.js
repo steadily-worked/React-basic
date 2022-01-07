@@ -1,22 +1,32 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import classes from "./MealItem.module.css";
 import MealItemForm from "./MealItemForm";
+import CartContext from "store/cart-context";
 
 const MealItem = (props) => {
-  const addToCartHandler = () => {};
+  const cartCtx = useContext(CartContext);
+  const price = `$${props.price.toFixed(2)}`;
+  const addToCartHandler = (amount) => {
+    cartCtx.addItem({
+      id: props.id,
+      name: props.name,
+      amount: amount,
+      price: props.price,
+    });
+  };
 
   return (
     <Fragment>
-      <section className={classes.meal}>
-        <section>
+      <li className={classes.meal}>
+        <div>
           <h3>{props.name}</h3>
           <div className={classes.description}>{props.description}</div>
-          <span className={classes.price}>{props.price}</span>
-        </section>
-        <section>
+          <span className={classes.price}>{price}</span>
+        </div>
+        <div>
           <MealItemForm onAddToCart={addToCartHandler} />
-        </section>
-      </section>
+        </div>
+      </li>
     </Fragment>
   );
 };
