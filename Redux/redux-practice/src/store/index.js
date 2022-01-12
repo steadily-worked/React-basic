@@ -1,13 +1,12 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
-export const INCREMENT = "increment";
-const initialState = { counter: 0, showCounter: true };
+const initialCounterState = { counter: 0, showCounter: true };
 
 // 전역 상태의 slice: 상태를 여러 조각으로 나눔 ex) 인증 상태와 카운터 상태
 // 리듀서: 객체 혹은 맵. 이 상태 slice는 리듀서를 필요로 함
 const counterSlice = createSlice({
   name: "counter",
-  initialState,
+  initialState: initialCounterState,
   reducers: {
     // 여기서는 액션이 필요 없음: 어떤 액션을 했느냐에 따라 메소드가 자동으로 호출되므로
     // 서로 다른 리듀서를 구별해놓고, 각각의 리듀서에 해당하는 액션을 발생시킬 것임
@@ -30,7 +29,24 @@ const counterSlice = createSlice({
   },
 });
 
-const store = configureStore({ reducer: counterSlice.reducer });
+const initialAuthState = { isAuthenticated: false };
+
+const authSlice = createSlice({
+  name: "authentication",
+  initialState: initialAuthState,
+  reducers: {
+    login(state) {
+      state.isAuthenticated = true;
+    },
+    logout(state) {
+      state.isAuthenticated = false;
+    },
+  },
+});
+
+const store = configureStore({
+  reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
+});
 // 그러나 이러한 createSlice와 같은 방식은 기존 리듀서 방식에 비해 코드가 간결해지긴 하지만
 // 역시나 앱의 규모가 커졌을 때 createStore에 하나의 리듀서만 전달이 되어야 하기 때문에
 // 서로 다른 slice에 접근하는 리듀서가 많아지면서 문제가 생길 수 있다.
@@ -45,8 +61,9 @@ const store = configureStore({ reducer: counterSlice.reducer });
 // configureStore가 이러한 모든 리듀서들을 하나의 큰 리듀서들로 병합을 해줄 것이다.
 
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 // createSlice로 액션을 전달할 수 있다.
-// counterSlice.actions.toggleCounter의 리턴값: {type: '임의의 자동 생성된 고유한 식별자'}. 이거 신경 쓸 필요는 없다.
+// counterSlice.actions.toggleCounter의 리턴값은 {type: '임의의 자동 생성된 고유한 식별자'}인데, 이걸 신경 쓸 필요는 없다.
 // 단지 createSlice의 actions key와 객체를 사용하기만 하면 됨
 // export를 해줌으로써 actions와 store 모두를 export하게 됨
 
