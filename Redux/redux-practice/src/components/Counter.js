@@ -1,6 +1,6 @@
 import classes from "./Counter.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { counterActions } from "../store/index";
+import { counterActions } from "../store/couter";
 // export해준 counterActions(리듀서의 모음)을 import 해오고
 // 실제로 적용할 때는 13, 22, 26행과 같이 한다.
 

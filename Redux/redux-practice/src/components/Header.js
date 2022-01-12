@@ -1,7 +1,7 @@
 import classes from "./Header.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Fragment } from "react";
-import { authActions } from "../store/index";
+import { authActions } from "../store/auth";
 
 const Header = () => {
   const dispatch = useDispatch();
