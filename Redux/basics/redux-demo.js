@@ -1,4 +1,4 @@
-const redux = require("redux");
+import { createStore } from "redux";
 
 const counterReducer = (
   state = { counter: 0 /* state의 초기 값을 지정해줘야 한다. */ },
@@ -22,7 +22,7 @@ const counterReducer = (
 // 출력: 새로운 상태 객체
 // 리덕스가 제공한 입력을 받아서 새 상태 객체라는 예상되는 출력을 내놓는다.
 
-const store = redux.createStore(counterReducer);
+const store = createStore(counterReducer);
 // 리덕스 라이브러리에 노출된 방법. 스토어를 만드는 방법
 // 파라미터로 리듀서가 들어감: 어떤 리듀서가 스토어를 바꾸는지 스토어가 알아야 하므로
 
