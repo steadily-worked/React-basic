@@ -6,15 +6,15 @@ import { counterActions } from "../store/index";
 
 const Counter = () => {
   const dispatch = useDispatch();
-  const counter = useSelector((state) => state.counter);
-  const show = useSelector((state) => state.showCounter);
+  const counter = useSelector((state) => state.counter.counter);
+  const show = useSelector((state) => state.counter.showCounter);
 
   const incrementHandler = () => {
     dispatch(counterActions.increment());
   };
 
   const increaseHandler = () => {
-    dispatch(counterActions.increase(10)); // { type: SOME_UNIQUE_IDENTIFIER, payload(Redux-toolkit이 임의로 설정함): 10 }
+    dispatch(counterActions.increase(5)); // { type: SOME_UNIQUE_IDENTIFIER, payload(Redux-toolkit이 임의로 설정함): 5 }
     // 17행의 경우 increase의 인자로 숫자를 넣어주면 자동으로 payload로 인식된다.
     // 그래서 다른 action 인자가 들어가는 경우에는 reducer 내에 인자로 action.payload를 넣어줘야 한다
   };
