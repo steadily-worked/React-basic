@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { uiSliceActions } from "./ui-slice";
 
 const initialState = { items: [], quantity: 0 };
 const cartSlice = createSlice({
@@ -40,6 +41,50 @@ const cartSlice = createSlice({
     },
   },
 });
+
+export const sendCartData = (cart) => {
+  // 아무것도 하지 않고 바로 비동기 함수를 리턴해준다.
+  return async (dispatch) => {
+    dispatch(
+      uiSliceActions.showNotification({
+        status: "pending",
+        title: "Sending...",
+        message: "Sending cart data!",
+      })
+    );
+
+    const sendRequest = async () => {
+      const response = await fetch(
+        "https://food-order-app-with-redux-default-rtdb.firebaseio.com/cart.json",
+        { method: "PUT", body: JSON.stringify(cart) }
+      );
+
+      if (!response.ok) {
+        throw new Error("Sending cart data failed");
+      }
+    };
+
+    try {
+      await sendRequest();
+      dispatch(
+        uiSliceActions.showNotification({
+          status: "success",
+          title: "Success!",
+          message: "Sent cart data successfully",
+        })
+      );
+    } catch (eror) {
+      dispatch(
+        uiSliceActions.showNotification({
+          status: "error",
+          title: "Error!",
+          message: "Sending cart data failed.",
+        })
+      );
+    }
+  };
+};
+// 아직 리듀서에 도달하지 않았으므로 비동기 코드 등을 여기서 실행할 수 있다.
 
 export const cartActions = cartSlice.actions;
 
