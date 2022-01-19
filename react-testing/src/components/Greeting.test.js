@@ -41,4 +41,16 @@ describe("Greeting Component", () => {
     });
     expect(changedTextElement).toBeInTheDocument();
   });
+
+  test("버튼을 클릭했을 때 '만나서 반가워요!'가 사라지는지 검사해볼게요", () => {
+    render(<Greeting />);
+
+    const buttonElement = screen.getByRole("button");
+    userEvent.click(buttonElement);
+
+    const disappearedTextElement = screen.queryByText("만나서 반가워요", {
+      exact: false,
+    });
+    expect(disappearedTextElement).not.toBeInTheDocument();
+  });
 });
