@@ -51,6 +51,7 @@ describe("Greeting Component", () => {
     const disappearedTextElement = screen.queryByText("만나서 반가워요", {
       exact: false,
     });
+    // expect(disappearedTextElement).toBeNull();
     expect(disappearedTextElement).not.toBeInTheDocument();
   });
 });
